@@ -16,7 +16,7 @@ def main(root_filename):
 
 if __name__ == '__main__':
 
-    parser = argparse.Argumentparser()
+    parser = argparse.ArgumentParser()
     parser.add_argument('--root', dest = 'root', default = './roo/')
     args = parser.parse_args()
 
