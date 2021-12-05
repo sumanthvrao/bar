@@ -17,7 +17,7 @@ def main(root_filename):
 if __name__ == '__main__':
 
     parser = argparse.Argumentparser()
-    parser.add_argument('--root', dest = 'root', default = './root_folder/')
+    parser.add_argument('--root', dest = 'root', default = './roo/')
     args = parser.parse_args()
 
     main(args.root)
