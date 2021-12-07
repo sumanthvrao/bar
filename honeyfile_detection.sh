@@ -32,7 +32,7 @@ done
 while inotifywait -q -e access,attrib,close,open,modify $honey_fname; do
 	# pid_this = $(sudo /sbin/ausearch -f $honey_fname | more | grep -o ' pid=[0-9]* ' | grep -v 'grep' | sed 's/\ pid=//' | tr '\n' ' ' | xargs sudo kill -9 > /dev/null 2>&1)
 	pid_this=$(lsof | grep $honey_fname)
-    if [ "$pid_this" == "\n"]; then
+    if [ "$pid_this" == "\n" ]; then
 	    echo ${pid_this}
 	    echo "CRITICAL: A program tried to access a honey file and was killed."
     fi
