@@ -10,9 +10,11 @@ case $root_folder in
         cwd_variable=$(pwd)
         root_folder=${root_folder:2}
         root_folder="${cwd_variable}"+"/"+"${root_folder}"
+        ;;
     *)
         cwd_variable=$(pwd)
         root_folder="${cwd_variable}"+"/"+"${root_folder}"
+        ;;
 
 echo "Root"
 echo "${root_folder}"
