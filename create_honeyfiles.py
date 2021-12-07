@@ -6,7 +6,10 @@ def main(root_filename):
         root_filename = root_filename + '/'
     
     with open(os.path.join(root_filename, '.honey1.pdf'), 'wb') as f:
-        f.seek(10485759)
+        for i in range(1000):
+                f.write(str(integer))
+                f.write('\n')
+        #f.seek(1024)
         f.write(b'\0')
 
 if __name__ == '__main__':
