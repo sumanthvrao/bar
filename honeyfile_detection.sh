@@ -15,6 +15,7 @@ case $root_folder in
         cwd_variable=$(pwd)
         root_folder="${cwd_variable}"+"/"+"${root_folder}"
         ;;
+esac
 
 echo "Root"
 echo "${root_folder}"
