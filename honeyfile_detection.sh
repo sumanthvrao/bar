@@ -26,7 +26,7 @@ case $root_folder in
         ;;
 esac
 
-chmod 777 $honey_fname
+sudo chmod 777 $honey_fname
 
 for d in $(find $root_folder -type d)
 do
