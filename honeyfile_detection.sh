@@ -55,8 +55,9 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
     if [ "$pid_this" ]; then
         echo ${pid_this}
         inotifywait -q -e modify,close $honey_fname
-        pid_this=$(sudo ausearch -f $honey_fname | more | grep -o ' pid=[0-9]* ' | grep -v 'grep' | sed 's/\ pid=//' | tail -1 | tr '\n' ' ')
-        echo ${pid_this}
+        sudo ausearch -f $honey_fname
+        # pid_this=$(sudo ausearch -f $honey_fname | more | grep -o ' pid=[0-9]* ' | grep -v 'grep' | sed 's/\ pid=//' | tail -1 | tr '\n' ' ')
+        # echo ${pid_this}
         # kill -STOP ${pid_this}
         # echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
         # file_found=$(find -path $honey_fname)
@@ -66,6 +67,7 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         #     echo "CRITICAL: The program overwrote the honey file and was killed"
         # fi
         # kill -CONT ${pid_this}
+        break
     fi
 done
 
