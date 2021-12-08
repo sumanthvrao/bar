@@ -25,7 +25,10 @@ def RunEntropyCheck(file):
         perBucketEntropy = entropyList[5]
         print("per bucket entropy: {}" .format(perBucketEntropy))
 
+    return mean
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         raise "Usage: driver.py [path]"
-    RunEntropyCheck(sys.argv[1])
+    mean = RunEntropyCheck(sys.argv[1])
+    return mean

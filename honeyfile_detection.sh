@@ -57,13 +57,21 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         inotifywait -q -e close $honey_fname
         kill -STOP ${pid_this}
         echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
-        # file_found=$(ls -a $root_folder | grep -w ".honey1.pdf" )
-        # echo ${file_found}
+        
         if ! [ -f $honey_fname ]; then
             kill -9 ${pid_this}
             sudo chmod -R 400 $root_folder
             echo "CRITICAL: The program overwrote the honey file and was killed. Permissions of folder set to read only."
             break
+        else
+            varDriver=$(python2 driver.py $honey_fname)
+            echo "HOPEFULLY this is the mean from driver"
+            echo "$varDriver"
+            if [ "$varDriver" -gt 7.5 ]; then
+                echo "Should be encryption value (greater)"
+            else
+                echo "Not encryption (lesser)"
+            fi
         fi
         kill -CONT ${pid_this}
     fi
