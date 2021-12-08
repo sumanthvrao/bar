@@ -63,15 +63,15 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
             sudo chmod -R 400 $root_folder
             echo "CRITICAL: The program overwrote the honey file and was killed. Permissions of folder set to read only."
             break
-        else
-            varDriver=$(python2 driver.py $honey_fname)
-            echo "HOPEFULLY this is the mean from driver"
-            echo "$varDriver"
-            if [ "$varDriver" -gt 7.5 ]; then
-                echo "Should be encryption value (greater)"
-            else
-                echo "Not encryption (lesser)"
-            fi
+        # else
+        #     varDriver=$(python2 driver.py $honey_fname)
+        #     echo "HOPEFULLY this is the mean from driver"
+        #     echo "$varDriver"
+        #     if [ "$varDriver" -gt 7.5 ]; then
+        #         echo "Should be encryption value (greater)"
+        #     else
+        #         echo "Not encryption (lesser)"
+        #     fi
         fi
         kill -CONT ${pid_this}
     fi
