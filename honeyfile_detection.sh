@@ -66,10 +66,13 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
             break
         
         elif [ $(find -L $root_folder -samefile $honey_fname | wc -l) -eq $numSymlinks ]; then
-            kill -9 ${pid_this}
-            sudo chmod -R 400 $root_folder
-            echo "CRITICAL: The program overwrote a symlink. Permissions of folder set to read only."
-            break
+            find -L $root_folder -samefile $honey_fname
+            echo $(find -L $root_folder -samefile $honey_fname | wc -l)
+            echo $numSymlinks
+            # kill -9 ${pid_this}
+            # sudo chmod -R 400 $root_folder
+            # echo "CRITICAL: The program overwrote a symlink. Permissions of folder set to read only."
+            # break
 
         else
             python2 driver.py $honey_fname
