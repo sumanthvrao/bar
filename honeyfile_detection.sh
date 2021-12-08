@@ -57,9 +57,9 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         inotifywait -q -e close $honey_fname
         kill -STOP ${pid_this}
         echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
-        file_found=$(ls -a $root_folder | grep -w ".honey1.pdf" )
-        echo ${file_found}
-        if ! [ "$file_found" ]; then
+        # file_found=$(ls -a $root_folder | grep -w ".honey1.pdf" )
+        # echo ${file_found}
+        if ! [ -f $honey_fname ]; then
             kill -9 ${pid_this}
             sudo chmod -R 400 $root_folder
             echo "CRITICAL: The program overwrote the honey file and was killed. Permissions of folder set to read only."
