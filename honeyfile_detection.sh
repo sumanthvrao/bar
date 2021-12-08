@@ -56,7 +56,7 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         echo ${pid_this}
         inotifywait -q -e close $honey_fname
         kill -STOP ${pid_this}
-        echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
+        echo "WARNING: A program tried to access a honey file and was suspended. Running checks."
         
         if ! [ -f $honey_fname ]; then
             kill -9 ${pid_this}
@@ -67,15 +67,17 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
             python2 driver.py $honey_fname
             varDriver=$(cat .meanEntropy.txt)
             num2=7.5
-            echo "HOPEFULLY this is the mean from driver"
-            echo "$varDriver"
+            
             if (( $(echo "$varDriver > $num2" |bc -l) )); then
-                echo "Should be encryption value (greater)"
+                kill -9 ${pid_this}
+                sudo chmod -R 400 $root_folder
+                echo "CRITICAL: HONEYFILE CHANGED, entropy > 7.5. Permissions of folder set to read only."
+                break
             else
-                echo "Not encryption (lesser)"
+                kill -CONT ${pid_this}
+                echo "WARNING: Honeyfile unchanged, entropy < 7.5. Allowing process"
             fi
         fi
-        kill -CONT ${pid_this}
     fi
 done
 
