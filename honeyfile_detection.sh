@@ -66,9 +66,10 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         else
             python2 driver.py $honey_fname
             varDriver=$(cat .meanEntropy.txt)
+            num2=7.5
             echo "HOPEFULLY this is the mean from driver"
             echo "$varDriver"
-            if [ "$varDriver" -gt 7.5 ]; then
+            if (( $(echo "$varDriver > $num2" |bc -l) )); then
                 echo "Should be encryption value (greater)"
             else
                 echo "Not encryption (lesser)"
