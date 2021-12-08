@@ -65,7 +65,7 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
             echo "CRITICAL: The program overwrote the honey file and was killed. Permissions of folder set to read only."
             break
         
-        elif [ $(find -L $root_folder -samefile $honey_fname | wc -l) -eq $numSymlinks ]; then
+        elif ! [ $(find -L $root_folder -samefile $honey_fname | wc -l) -eq $numSymlinks ]; then
             find -L $root_folder -samefile $honey_fname
             echo $(find -L $root_folder -samefile $honey_fname | wc -l)
             echo $numSymlinks
