@@ -9,7 +9,7 @@ def main(root_filename):
         for r in range(1000):
                 f.write(str(r))
                 f.write('\n')
-        #f.seek(1024)
+        f.seek(10485760)
         f.write('\0')
 
 if __name__ == '__main__':
