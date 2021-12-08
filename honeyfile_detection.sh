@@ -26,6 +26,8 @@ case $root_folder in
         ;;
 esac
 
+chmod 777 $honey_fname
+
 for d in $(find $root_folder -type d)
 do
     if [ "$d" == "$root_folder" ]; then
@@ -41,16 +43,18 @@ do
     esac 
 done
 
-# sudo /sbin/auditctl -w $honey_fname -p war
 
 while inotifywait -q -e access,attrib,open,modify $honey_fname; do
-	# pid_this = $(sudo /sbin/ausearch -f $honey_fname | more | grep -o ' pid=[0-9]* ' | grep -v 'grep' | sed 's/\ pid=//' | tr '\n' ' ' | xargs sudo kill -9 > /dev/null 2>&1)
     pid_this=$(lsof $honey_fname | awk 'NR==2 {print $2}')
     if [ "$pid_this" ]; then
 	echo ${pid_this}
 	inotifywait -q -e close $honey_fname
 	kill -STOP ${pid_this}
-	echo "CRITICAL: A program tried to access a honey file and was killed."
+	echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
+	if ! (( $(find $root_folder | grep $honey_fname) )); then
+		kill -9 ${pid_this}
+		echo "CRITICAL: The program overwrote the honey file and was killed"
+	fi
     fi
 done
 
