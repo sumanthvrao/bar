@@ -53,7 +53,7 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
         file_found=$(find $root_folder | grep $honey_fname)
         echo ${file_found}
-        if ! [ "$file_found" == "" ]; then
+        if [ "$file_found" == "" ]; then
             kill -9 ${pid_this}
             echo "CRITICAL: The program overwrote the honey file and was killed"
         fi
