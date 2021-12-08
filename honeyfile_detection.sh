@@ -48,7 +48,7 @@ sudo service auditd start
 sudo auditctl -D
 sudo auditctl -w $honey_fname -p war -k user1
 
-while inotifywait -q -e access,attrib,open,modify $honey_fname; do
+while inotifywait -q -e access,attrib,open,modify,delete $honey_fname; do
     echo "IN LOOP"
     pid_this=$(sudo ausearch -f $honey_fname | more | grep -o ' pid=[0-9]* ' | grep -v 'grep' | sed 's/\ pid=//' | tail -1 | tr '\n' ' ')
     # pid_this=$(lsof $honey_fname | awk 'NR==2 {print $2}')
