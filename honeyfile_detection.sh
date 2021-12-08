@@ -58,7 +58,7 @@ while inotifywait -q -e access,attrib,open,modify,delete $honey_fname; do
         inotifywait -q -e close $honey_fname
         kill -STOP ${pid_this}
         echo "WARNING: A program tried to access a honey file and was suspended. Running checks."
-        sleep 10
+        sleep 1
         
         if ! [ -f $honey_fname ]; then
             kill -9 ${pid_this}
