@@ -57,7 +57,7 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         inotifywait -q -e close $honey_fname
         kill -STOP ${pid_this}
         echo "CRITICAL: A program tried to access a honey file and was suspended. Running checks."
-        file_found=$(ls -a $root_folder | grep -w .honey1.pdf )
+        file_found=$(ls -a $root_folder | grep -w ".honey1.pdf" )
         echo ${file_found}
         if ! [ "$file_found" ]; then
             kill -9 ${pid_this}
