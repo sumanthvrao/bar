@@ -28,8 +28,6 @@ def RunEntropyCheck(file):
     with open('.meanEntropy.txt', 'w') as f:
         f.write(str(mean))
 
-def main():
-
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         raise "Usage: driver.py [path]"
