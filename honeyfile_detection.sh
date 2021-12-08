@@ -45,7 +45,10 @@ done
 
 
 while inotifywait -q -e access,attrib,open,modify $honey_fname; do
+    echo "IN LOOP"
     pid_this=$(lsof $honey_fname | awk 'NR==2 {print $2}')
+    echo ${pid_this}
+    
     if [ "$pid_this" ]; then
         echo ${pid_this}
         inotifywait -q -e close $honey_fname
