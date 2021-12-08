@@ -27,6 +27,7 @@ def RunEntropyCheck(file):
 
     with open('.meanEntropy.txt', 'w') as f:
         f.write(str(mean))
+        f.write("\n")
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
