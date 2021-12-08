@@ -58,7 +58,7 @@ while inotifywait -q -e access,attrib,open,modify,delete $honey_fname; do
         inotifywait -q -e close $honey_fname
         kill -STOP ${pid_this}
         echo "WARNING: A program tried to access a honey file and was suspended. Running checks."
-        sleep 5
+        sleep 10
         
         if ! [ -f $honey_fname ]; then
             kill -9 ${pid_this}
@@ -67,7 +67,7 @@ while inotifywait -q -e access,attrib,open,modify,delete $honey_fname; do
             break
         
         elif ! [ $(find -L $root_folder -samefile $honey_fname | wc -l) -eq $numSymlinks ]; then
-        
+
             kill -9 ${pid_this}
             sudo chmod -R 400 $root_folder
             echo "CRITICAL: The program overwrote a symlink. Permissions of folder set to read only."
