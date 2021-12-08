@@ -61,7 +61,7 @@ while inotifywait -q -e access,attrib,open,modify $honey_fname; do
         echo ${file_found}
         if [ "$file_found" == "" ]; then
             kill -9 ${pid_this}
-            chmod -R 400 $root_folder
+            sudo chmod -R 400 $root_folder
             echo "CRITICAL: The program overwrote the honey file and was killed. Permissions of folder set to read only."
             break
         fi
