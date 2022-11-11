@@ -1,4 +1,4 @@
-# ransomware-detection
+# BAR: A Ransomware Detection Tool Suite
 CSE 227 Project
 
 
